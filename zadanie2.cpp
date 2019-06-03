@@ -16,9 +16,9 @@
 //																																				   //
 //                                                  F i l e																						   //
 //																																				   //
-// 1. Написать программу, читающую последовательность из десяти целых чисел,																	   //
-// а затем выводящихих в виде трех столбцов, в первом столбце должны быть выведены восьмеричные значения этих чисел,							   //
-// во втором — десятичные, в третьем — шестнадцатеричные.																						   //	
+// 2. Написать   функцию   для   вывода   таблицы   умножения   заданной   системы   счисления.													   //
+// Систему счисления   задавать   в   качестве   параметра   функции.																			   //
+// Обеспечить   поддержку   восьмеричной, десятичной и шестнадцатеричной систем.																   //
 //																																				   //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,44 +29,50 @@
 
 using namespace std;
 
+void printTabl(const int mode);
+
 int main(int argc, char **argv)
 {
-	const int NUMBER_COUNT = 10;
-	const int NUMBER_SIZE  = 4;
-	const char * file = "/root/Рабочий стол/examp";
-	int array[NUMBER_COUNT];
-
-	ifstream ifs;
-	ifs.open(file, ios::binary | ios::in);
-
-	for (int i = 0; i < NUMBER_COUNT; i+=5) {
-		ifs.read((char*)array, sizeof array);
-	}
-
-	for (auto f : array) cout << oct <<  f << "\t" <<  dec << f << "\t" <<  hex << f << endl;
-	ifs.close();
-	
-
+	printTabl(5);
+	printTabl(8);
+	printTabl(10);
+	printTabl(16);
 
 	return 0;
 }
 
+void printTabl(const int mode) {
 
-	/* Чтобы сделать стартовы файл
-	ofstream ofs;
-	ofs.open(file, ios::binary | ios::trunc | ios::out);
-
-
-	for (int i = 0; i < NUMBER_COUNT; i++) {
-		array[i] = i;
+	if (mode == 8) {
+		cout << "Режим " << dec << mode << endl;
+		for (int i = 0; i < mode; i++) {
+			for (int j = 0; j < mode; j++) {
+				cout << oct << setw(4) << (i+1)*(j+1);
+			}
+			cout << endl;
+		}
+		return;
 	}
-
-	ofs.write((char*)&array, sizeof array);
-	ofs.close();
-
-	cout << "############\n";
-	for (auto f : array) cout << f << endl;
-	cout << "############\n";
-	*/
-
-
+	if (mode == 10) {
+		cout << "Режим " << dec << mode << endl;
+		for (int i = 0; i < mode; i++) {
+			for (int j = 0; j < mode; j++) {
+				cout << dec << setw(4) << (i+1)*(j+1);
+			}
+			cout << endl;
+		}
+		return;
+	}
+	if (mode == 16) {
+		cout << "Режим " << dec  << mode << endl;
+		for (int i = 0; i < mode; i++) {
+			for (int j = 0; j < mode; j++) {
+				cout << hex << setw(4) << (i+1)*(j+1);
+			}
+			cout << endl;
+		}
+		return;
+	}
+	cout << "unknown mode\n";
+	return;
+}
